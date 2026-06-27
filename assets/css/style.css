@@ -136,7 +136,7 @@ ul { list-style: none; }
 /* When the WebGL refraction engine is active, drop the CSS blur/tint so the
    shader-painted refraction shows through. Keep rim + specular for definition. */
 html.has-gl-glass .glass {
-  background: rgba(14,13,12,0.12);
+  background: rgba(255,255,255,0.045);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
@@ -202,12 +202,12 @@ html.has-gl-glass .glass {
   background: linear-gradient(180deg, transparent 0%, transparent 92%, rgba(255,255,255,0.30) 100%);
 }
 html.has-gl-glass .nav {
-  background: rgba(14,13,12,0.12);
+  background: rgba(255,255,255,0.045);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
 html.has-gl-glass .nav.docked {
-  background: rgba(14,13,12,0.18);
+  background: rgba(255,255,255,0.06);
 }
 .nav-brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 500; }
 .logo-dot {

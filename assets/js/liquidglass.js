@@ -94,22 +94,21 @@
 
     float lum = dot(col, vec3(0.299,0.587,0.114));
     col = mix(vec3(lum), col, 1.25);
-    col *= 1.18;
-    col = mix(col, col*vec3(1.08,1.02,0.88), 0.30);
-    col = mix(col, vec3(0.12,0.105,0.08), 0.20);
+    col *= 1.20;
+    col = mix(col, vec3(0.92,0.96,1.0), 0.08);
 
     float edge = smoothstep(0.34, 0.51, rad);
     vec3 lightDir = normalize(vec3(-0.5,0.8,0.4));
     float rim = pow(max(0.0, dot(normalize(vec3(-c.x, c.y, 0.6)), lightDir)), 2.0);
-    col += vec3(1.0,0.95,0.82) * rim * edge * 0.62;
+    col += vec3(1.0,1.0,1.0) * rim * edge * 0.64;
 
-    float topLight = smoothstep(0.62, 0.0, g.y) * smoothstep(0.36,0.0,rad) * 0.18;
+    float topLight = smoothstep(0.62, 0.0, g.y) * smoothstep(0.36,0.0,rad) * 0.20;
     col += topLight;
 
     float centerGlow = smoothstep(0.5, 0.0, rad) * 0.05;
     col += centerGlow;
 
-    frag = vec4(col, mask * 0.82);
+    frag = vec4(col, mask * 0.58);
   }`;
 
   // WebGL1 fallback shaders
@@ -154,15 +153,14 @@
     col.b = texture2D(u_tex, ub).b;
     float lum = dot(col, vec3(0.299,0.587,0.114));
     col = mix(vec3(lum), col, 1.25);
-    col *= 1.18;
-    col = mix(col, col*vec3(1.08,1.02,0.88), 0.30);
-    col = mix(col, vec3(0.12,0.105,0.08), 0.20);
+    col *= 1.20;
+    col = mix(col, vec3(0.92,0.96,1.0), 0.08);
     float edge = smoothstep(0.34, 0.51, rad);
     float rim = pow(max(0.0, dot(normalize(vec3(-c.x, c.y, 0.6)), normalize(vec3(-0.5,0.8,0.4)))), 2.0);
-    col += vec3(1.0,0.95,0.82) * rim * edge * 0.50;
-    float topLight = smoothstep(0.62,0.0,g.y) * smoothstep(0.36,0.0,rad) * 0.16;
+    col += vec3(1.0,1.0,1.0) * rim * edge * 0.54;
+    float topLight = smoothstep(0.62,0.0,g.y) * smoothstep(0.36,0.0,rad) * 0.18;
     col += topLight;
-    gl_FragColor = vec4(col, mask * 0.82);
+    gl_FragColor = vec4(col, mask * 0.58);
   }`;
 
   function compile(src, type) {
