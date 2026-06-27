@@ -21,6 +21,7 @@
   let rotation = 0;
   let last = 0;
   let rafId = 0;
+  let running = false;
 
   const SKY_SEED = 27092001;
   const ROT_SPEED = 0.000012;
@@ -45,8 +46,10 @@
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     seedSky();
     last = 0;
-    if (rafId) cancelAnimationFrame(rafId);
+    const wasRunning = running;
+    stop();
     draw(performance.now());
+    if (wasRunning) start();
   }
 
   function seedSky() {
@@ -178,7 +181,20 @@
       }
     });
 
-    if (!reduce) rafId = requestAnimationFrame(draw);
+    if (!reduce && running) rafId = requestAnimationFrame(draw);
+  }
+
+  function start() {
+    if (reduce || running || document.hidden) return;
+    running = true;
+    last = 0;
+    rafId = requestAnimationFrame(draw);
+  }
+
+  function stop() {
+    running = false;
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = 0;
   }
 
   let rTimer;
@@ -186,6 +202,11 @@
     clearTimeout(rTimer);
     rTimer = setTimeout(resize, 160);
   });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stop();
+    else start();
+  });
 
   resize();
+  start();
 })();

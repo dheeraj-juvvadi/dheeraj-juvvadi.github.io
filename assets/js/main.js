@@ -141,6 +141,7 @@
 
     // active link
     const links = [...document.querySelectorAll(".nav-links a")];
+    const mobileLinks = [];
     const map = {};
     links.forEach((l) => {
       const id = l.getAttribute("href").slice(1);
@@ -153,7 +154,13 @@
           const l = map[e.target.id];
           if (l && e.isIntersecting) {
             links.forEach((x) => x.classList.remove("active"));
+            links.forEach((x) => x.removeAttribute("aria-current"));
+            mobileLinks.forEach((x) => x.classList.remove("active"));
             l.classList.add("active");
+            l.setAttribute("aria-current", "page");
+            mobileLinks
+              .filter((x) => x.getAttribute("href") === l.getAttribute("href"))
+              .forEach((x) => x.classList.add("active"));
           }
         });
       },
@@ -169,23 +176,32 @@
       .map((id) => `<a href="#${id}">${id.charAt(0).toUpperCase() + id.slice(1)}</a>`)
       .join("");
     document.body.appendChild(menu);
+    mobileLinks.push(...menu.querySelectorAll("a"));
     toggle.setAttribute("aria-controls", "mobileMenu");
     toggle.setAttribute("aria-expanded", "false");
-    toggle.addEventListener("click", () => {
-      const open = !menu.classList.contains("open");
+
+    const setMenu = (open) => {
       menu.classList.toggle("open", open);
       toggle.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       document.body.classList.toggle("menu-open", open);
+    };
+
+    toggle.addEventListener("click", () => {
+      setMenu(!menu.classList.contains("open"));
     });
     [...menu.querySelectorAll("a")].forEach((a) =>
       a.addEventListener("click", () => {
-        menu.classList.remove("open");
-        toggle.classList.remove("open");
-        toggle.setAttribute("aria-expanded", "false");
-        document.body.classList.remove("menu-open");
+        setMenu(false);
       })
     );
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && menu.classList.contains("open")) {
+        setMenu(false);
+        toggle.focus();
+      }
+    });
   }
 
   /* ---------- Init ---------- */
