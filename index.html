@@ -17,6 +17,14 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
+  <svg class="glass-filters" aria-hidden="true" focusable="false">
+    <filter id="navGlassDisplace">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.08" numOctaves="2" seed="7" result="noise" />
+      <feGaussianBlur in="noise" stdDeviation="0.6" result="softNoise" />
+      <feDisplacementMap in="SourceGraphic" in2="softNoise" scale="18" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
   <!-- Background -->
   <div class="bg" aria-hidden="true">
     <canvas id="starfield"></canvas>

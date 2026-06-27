@@ -47,6 +47,12 @@ body {
 }
 body.menu-open { overflow: hidden; }
 section[id] { scroll-margin-top: 6rem; }
+.glass-filters {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 ul { list-style: none; }
@@ -172,9 +178,54 @@ html.has-gl-glass .glass {
   box-shadow:
     inset 0 1px 0.5px rgba(255,255,255,0.35),
     0 8px 30px -12px rgba(0,0,0,0.6);
+  overflow: hidden;
+  isolation: isolate;
   transform: translateZ(0);
   will-change: margin, border-radius, padding, backdrop-filter;
   transition: background 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+.nav-refract {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+.nav-refract::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.03) 38%, rgba(255,255,255,0.08)),
+    linear-gradient(90deg, rgba(255,255,255,0.05), transparent 18%, transparent 82%, rgba(255,255,255,0.05));
+}
+.nav-refract-scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: var(--glass-doc-height, 100vh);
+  color: var(--ink);
+  transform: translate3d(var(--glass-x, 0), var(--glass-y, 0), 0) scale(1.018);
+  transform-origin: top left;
+  filter: url("#navGlassDisplace") blur(2.5px) saturate(128%) brightness(1.1) contrast(1.03);
+  opacity: 0.48;
+  will-change: transform;
+}
+.nav-refract-scene *,
+.nav-refract-scene *::before,
+.nav-refract-scene *::after {
+  pointer-events: none !important;
+  animation-play-state: paused !important;
+}
+.nav-refract-scene .reveal {
+  opacity: 1;
+  transform: none;
+}
+.nav > :not(.nav-refract) {
+  position: relative;
+  z-index: 2;
 }
 /* Docked state — flush to top edge, full width.
    Stronger blur so the refraction of scrolling content reads clearly. */
@@ -190,6 +241,7 @@ html.has-gl-glass .glass {
    no bright top edge (that's what caused the white slash at the page top) */
 .nav::before {
   content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  z-index: 3;
   padding: 1px;
   background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.10) 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
