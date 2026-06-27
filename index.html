@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#08080a" />
+  <title>Dheeraj Chandra — Software Engineer</title>
+  <meta name="description" content="Dheeraj Chandra — software engineer working at the seam between machine learning and the web. Based in Chennai." />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!-- Doto = Nothing dot-matrix (display) · Space Grotesk = body · Geist Mono = labels -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- Background -->
+  <div class="bg" aria-hidden="true">
+    <canvas id="starfield"></canvas>
+    <div class="bg-glow"></div>
+    <div class="bg-grain"></div>
+  </div>
+
+  <!-- Nav -->
+  <header class="nav liquid" id="nav">
+    <a href="#top" class="nav-brand">
+      <span class="logo-dot"></span>
+      <span class="logo-text">Dheeraj</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="nav-cta glass-soft">Get in touch</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span></button>
+  </header>
+
+  <main id="top">
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+      <p class="kicker reveal">Software Engineer · Chennai</p>
+      <h1 class="hero-name reveal" id="heroName">Dheeraj</h1>
+      <p class="hero-intro reveal" id="heroIntro"></p>
+      <p class="hero-intro reveal" id="heroIntro2"></p>
+      <div class="hero-cta reveal">
+        <a href="#work" class="btn-primary">View work <span class="arrow">→</span></a>
+        <a href="https://github.com/dheeraj-juvvadi" target="_blank" rel="noopener" class="btn-ghost">GitHub</a>
+      </div>
+      <div class="scroll-hint reveal" aria-hidden="true">
+        <span class="hint-line"></span>
+        <span>scroll</span>
+      </div>
+    </section>
+
+    <!-- ===== Work ===== -->
+    <section class="section" id="work">
+      <div class="section-head reveal">
+        <span class="kicker">01 — Selected Work</span>
+        <h2 class="section-title">Things I've<br><em>built &amp; shipped.</em></h2>
+      </div>
+      <div class="work-list" id="workList"></div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section class="section" id="about">
+      <div class="section-head split reveal">
+        <span class="kicker">02 — About</span>
+        <h2 class="section-title">More about<br><em>how I work.</em></h2>
+      </div>
+      <div class="about-body">
+        <div class="about-text" id="aboutText"></div>
+        <aside class="about-glass glass liquid reveal">
+          <div class="about-stat">
+            <span class="about-stat-num">SRM</span>
+            <span class="about-stat-label">Computer Science<br>Information Technology</span>
+          </div>
+          <ul class="about-meta">
+            <li><span>Based</span><span>Chennai, IN</span></li>
+            <li><span>Focus</span><span>ML · Full-stack</span></li>
+            <li><span>Stack</span><span>Py · React · Cloud</span></li>
+            <li><span>Certified</span><span>AWS Developer</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===== Stack ===== -->
+    <section class="section" id="stack">
+      <div class="section-head reveal">
+        <span class="kicker">03 — Stack</span>
+        <h2 class="section-title">Tools I<br><em>reach for.</em></h2>
+      </div>
+      <div class="stack-grid glass liquid" id="stackGrid"></div>
+    </section>
+
+    <!-- ===== Experience ===== -->
+    <section class="section" id="experience">
+      <div class="section-head reveal">
+        <span class="kicker">04 — Trajectory</span>
+        <h2 class="section-title">Where I've<br><em>done the work.</em></h2>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section class="section contact" id="contact">
+      <div class="contact-card glass liquid reveal">
+        <span class="kicker">05 — Contact</span>
+        <h2 class="contact-title">Let's build<br><em>something good.</em></h2>
+        <p class="contact-sub" id="contactAvail"></p>
+        <a href="mailto:dheerajchndra@gmail.com" class="contact-mail" id="contactMail"></a>
+        <div class="contact-links" id="contactLinks"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> Dheeraj Chandra</span>
+    <span class="footer-mid">Built from scratch · No frameworks</span>
+    <a href="#top">↑ top</a>
+  </footer>
+
+  <!-- ===== ASCII signature — the last thing on the page ===== -->
+  <section class="signature reveal" aria-hidden="true">
+    <pre id="asciiArt"></pre>
+  </section>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/starfield.js"></script>
+  <script src="assets/js/liquidglass.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
