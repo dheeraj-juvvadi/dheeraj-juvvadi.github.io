@@ -547,16 +547,13 @@ main { display: block; }
   section[id] { scroll-margin-top: 5.5rem; }
   .bg::after {
     background:
-      linear-gradient(180deg, rgba(8,8,10,0.12), rgba(8,8,10,0.22)),
-      radial-gradient(85% 65% at 50% 18%, transparent 0%, rgba(8,8,10,0.18) 100%);
+      linear-gradient(180deg, rgba(8,8,10,0.16), rgba(8,8,10,0.24)),
+      linear-gradient(90deg, rgba(8,8,10,0.10), transparent 42%, rgba(8,8,10,0.10));
   }
   #starfield { filter: blur(0.25px); }
   .bg-glow {
-    inset: 0;
-    opacity: 0.18;
-    background:
-      radial-gradient(90% 55% at 50% 0%, rgba(236,213,160,0.12), transparent 62%);
-    transform: none;
+    display: none;
+    background: none;
   }
   .bg-grain { opacity: 0.18; }
   .nav {
@@ -570,6 +567,13 @@ main { display: block; }
   .logo-text { font-size: 0.92rem; }
   .nav-links, .nav-cta { display: none; }
   .nav-toggle { display: flex; }
+  .hero::before {
+    background: linear-gradient(90deg, rgba(8,8,10,0.74), rgba(8,8,10,0.28) 68%, transparent);
+    filter: blur(16px);
+  }
+  .hero::after {
+    display: none;
+  }
   .about-body { grid-template-columns: 1fr; }
   .about-glass { position: static; }
   .work-list {
