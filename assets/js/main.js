@@ -13,6 +13,10 @@
     if (html != null) n.innerHTML = html;
     return n;
   };
+  const canTouch = () => window.matchMedia("(pointer: coarse)").matches;
+  const haptic = (pattern = 8) => {
+    if (canTouch() && "vibrate" in navigator) navigator.vibrate(pattern);
+  };
 
   const ICON = {
     github:
@@ -38,6 +42,7 @@
 
     // Work
     const wl = $("#workList");
+    wl.replaceChildren();
     (D.PROJECTS || []).forEach((pr, i) => {
       const item = el("article", "work-item reveal");
       item.innerHTML = `
@@ -50,8 +55,8 @@
         <div class="work-side">
           <span class="work-year">${pr.year || ""}</span>
           <div class="work-links">
-            <a href="${pr.repo}" target="_blank" rel="noopener" title="Source" aria-label="${pr.name} source">${ICON.github}</a>
-            ${pr.live ? `<a href="${pr.live}" target="_blank" rel="noopener" title="Live" aria-label="${pr.name} live">${ICON.external}</a>` : ""}
+            <a href="${pr.repo}" target="_blank" rel="noopener" title="Source" aria-label="${pr.name} source">${ICON.github}<span>Source</span></a>
+            ${pr.live ? `<a href="${pr.live}" target="_blank" rel="noopener" title="Live" aria-label="${pr.name} live">${ICON.external}<span>Live</span></a>` : ""}
           </div>
         </div>`;
       wl.appendChild(item);
@@ -59,10 +64,12 @@
 
     // About
     const at = $("#aboutText");
+    at.replaceChildren();
     (D.ABOUT || []).forEach((t) => at.appendChild(el("p", null, t)));
 
     // Stack
     const sg = $("#stackGrid");
+    sg.replaceChildren();
     Object.entries(D.STACK || {}).forEach(([group, items]) => {
       const g = el("div", "stack-group");
       g.appendChild(el("h3", null, group));
@@ -74,6 +81,7 @@
 
     // Timeline
     const tl = $("#timeline");
+    tl.replaceChildren();
     (D.EXPERIENCE || []).forEach((x) => {
       const item = el("div", "tl-item reveal");
       item.innerHTML = `
@@ -87,6 +95,7 @@
 
     // Contact links
     const cl = $("#contactLinks");
+    cl.replaceChildren();
     [
       { label: "GitHub", href: p.github, icon: ICON.github },
       { label: "LinkedIn", href: p.linkedin, icon: ICON.linkedin },
@@ -94,7 +103,12 @@
       { label: "Email", href: `mailto:${p.email}`, icon: ICON.mail },
     ].forEach((l) => {
       const a = el("a", "contact-link");
-      a.href = l.href; a.target = "_blank"; a.rel = "noopener";
+      a.href = l.href;
+      if (!l.href.startsWith("mailto:")) {
+        a.target = "_blank";
+        a.rel = "noopener";
+      }
+      a.setAttribute("aria-label", l.label === "Email" ? "Send email" : `Open ${l.label}`);
       a.innerHTML = `${l.icon}<span>${l.label}</span>`;
       cl.appendChild(a);
     });
@@ -170,6 +184,10 @@
     const toggle = $("#navToggle");
     const menu = el("div", "mobile-menu");
     menu.id = "mobileMenu";
+    menu.setAttribute("role", "dialog");
+    menu.setAttribute("aria-modal", "true");
+    menu.setAttribute("aria-label", "Menu");
+    menu.setAttribute("aria-hidden", "true");
     menu.innerHTML = ["work", "about", "stack", "experience", "contact"]
       .map((id) => `<a href="#${id}">${id.charAt(0).toUpperCase() + id.slice(1)}</a>`)
       .join("");
@@ -183,7 +201,9 @@
       toggle.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      menu.setAttribute("aria-hidden", String(!open));
       document.body.classList.toggle("menu-open", open);
+      if (open) window.setTimeout(() => mobileLinks[0]?.focus({ preventScroll: true }), 40);
     };
 
     toggle.addEventListener("click", () => {
@@ -200,6 +220,21 @@
         toggle.focus();
       }
     });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760 && menu.classList.contains("open")) setMenu(false);
+    });
+  }
+
+  function setupTactileFeedback() {
+    document.addEventListener(
+      "pointerdown",
+      (e) => {
+        const target = e.target.closest("a, button, .stack-list li");
+        if (!target) return;
+        haptic(target.classList.contains("nav-toggle") ? 12 : 7);
+      },
+      { passive: true }
+    );
   }
 
   /* ---------- Init ---------- */
@@ -207,6 +242,7 @@
     render();
     setupReveal();
     setupNav();
+    setupTactileFeedback();
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
