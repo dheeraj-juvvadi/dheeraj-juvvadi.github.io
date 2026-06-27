@@ -1,5 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" rx="22" fill="#08080a"/>
-  <rect x="18" y="18" width="64" height="64" rx="16" fill="#e8e6e0"/>
-  <text x="50" y="59" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="25" font-weight="600" letter-spacing="-1" fill="#08080a" text-anchor="middle">DC</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="15" fill="#08080a"/>
+  <rect x="9" y="9" width="46" height="46" rx="11" fill="#141416" stroke="#e8e6e0" stroke-opacity=".24"/>
+  <path d="M22 18v28h8.5C38 46 43 40.7 43 32s-5-14-12.5-14H22z" fill="none" stroke="#f3f1eb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M43.5 21.5A14 14 0 1 0 43.5 42.5" fill="none" stroke="#e8e6e0" stroke-opacity=".64" stroke-width="3.4" stroke-linecap="round"/>
+  <path d="M32 18v28" fill="none" stroke="#d8b676" stroke-width="2.4" stroke-linecap="round"/>
 </svg>
