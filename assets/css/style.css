@@ -545,6 +545,20 @@ main { display: block; }
    ========================================================================== */
 @media (max-width: 760px) {
   section[id] { scroll-margin-top: 5.5rem; }
+  .bg::after {
+    background:
+      linear-gradient(180deg, rgba(8,8,10,0.12), rgba(8,8,10,0.22)),
+      radial-gradient(85% 65% at 50% 18%, transparent 0%, rgba(8,8,10,0.18) 100%);
+  }
+  #starfield { filter: blur(0.25px); }
+  .bg-glow {
+    inset: 0;
+    opacity: 0.18;
+    background:
+      radial-gradient(90% 55% at 50% 0%, rgba(236,213,160,0.12), transparent 62%);
+    transform: none;
+  }
+  .bg-grain { opacity: 0.18; }
   .nav {
     min-height: 58px;
     margin: 0.6rem;
@@ -558,7 +572,22 @@ main { display: block; }
   .nav-toggle { display: flex; }
   .about-body { grid-template-columns: 1fr; }
   .about-glass { position: static; }
-  .work-item { grid-template-columns: 1.6rem 1fr; }
+  .work-list {
+    border-top-color: rgba(255,255,255,0.09);
+  }
+  .work-item {
+    grid-template-columns: 1.6rem 1fr;
+    margin-inline: calc(var(--pad) * -0.45);
+    padding: 1.8rem calc(var(--pad) * 0.45);
+    background: linear-gradient(90deg, rgba(8,8,10,0.42), rgba(8,8,10,0.22) 70%, rgba(8,8,10,0.10));
+    border-bottom-color: rgba(255,255,255,0.09);
+  }
+  .work-item::before {
+    opacity: 1;
+    background: linear-gradient(90deg, rgba(255,255,255,0.025), transparent 70%);
+  }
+  .work-name { opacity: 1; }
+  .work-blurb { color: #b8b5ad; opacity: 1; }
   .work-side { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: center; padding-top: 0; }
   .stack-grid { grid-template-columns: 1fr; }
   .stack-group { border-right: none !important; border-bottom: 1px solid var(--line) !important; padding: 1.2rem 0 !important; }
